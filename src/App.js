@@ -2,8 +2,8 @@ import './App.css';
 
 function App() {
   return (
-    <div className="App">
-     Lets Build
+    <div className="">
+    <h1 className='text-red-400 text-3xl font-semibold'>Lets Build</h1> 
     </div>
   );
 }
