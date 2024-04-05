@@ -4,6 +4,10 @@ import { checkValidateData } from '../utils/validate';
 import { BANNER_URL } from '../utils/constants';
 import { createUserWithEmailAndPassword,signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from '../utils/firebase'
+import sound from '../assets/sounds/themesong.mp3'
+import useSound from 'use-sound';
+
+
 
 
 const Login = () => {
@@ -12,6 +16,8 @@ const Login = () => {
     const [errorMessage, setErrorMessage] = useState(null);
     const email = useRef(null);
     const password = useRef(null);
+    const [play] = useSound(sound);
+
 
     const toggleSignIn = () => {
         setIsSigninForm(!isSigninForm);
@@ -20,7 +26,9 @@ const Login = () => {
     const handleButtonClick = () => {
         const message = checkValidateData(email.current.value, password.current.value);
         setErrorMessage(message);
-        if(message) return;
+        if(message) {
+            play();
+        };
         if(!isSigninForm){
             createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
                 .then((userCredential) => {
@@ -32,6 +40,7 @@ const Login = () => {
     const errorCode = error.code;
     const errorMessage = error.message;
     setErrorMessage(errorCode + "-" + errorMessage)
+    play();
   });
 
         }
@@ -46,6 +55,7 @@ const Login = () => {
                     const errorCode = error.code;
                     const errorMessage = error.message;
                     setErrorMessage(errorCode + "-" + errorMessage)
+                    play();
                 });
 
         }
