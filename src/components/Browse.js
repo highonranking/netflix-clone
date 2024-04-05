@@ -9,7 +9,7 @@ const Browse = () => {
   return (
     <div>
       <Header className=""/>
-      <div className='x'>
+      <div>
       <MainContainer/>
       <SecondaryContainer/>
       </div>

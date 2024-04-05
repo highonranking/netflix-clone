@@ -43,7 +43,7 @@ const Header = () => {
     };
 
     return (
-        <div className='fixed top-0 left-0 right-0 z-10 bg-gradient-to-b from-black px-4 py-3 md:px-6 md:py-4 flex justify-between items-center'>
+        <div className='fixed top-0 left-0 right-0 z-20 bg-gradient-to-b from-black px-4 py-3 md:px-6 md:py-4 flex justify-between items-center'>
             <Logo className='w-36 md:w-44' />
             {user && (
                 <div className='relative'>

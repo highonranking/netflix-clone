@@ -19,7 +19,6 @@ const useFetchTrailer = ({movieId}) => {
             video.type==='Trailer'
         ))
         dispatch(addMovieTrailer(videoDatas[0]));
-        console.log(videoDatas[0]);
 
     }
     const key = video?.key;

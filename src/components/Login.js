@@ -28,7 +28,6 @@ const Login = () => {
     const generator = new AvatarGenerator();
 
     const avatar = generator.generateRandomAvatar();
-    console.log(avatar);
 
 
 
@@ -59,7 +58,6 @@ const Login = () => {
                        
                       });
                       
-                    console.log(user);
                    
   })
   .catch((error) => {
@@ -76,7 +74,6 @@ const Login = () => {
                 .then((userCredential) => {
                     // Signed in 
                     const user = userCredential.user;
-                    console.log(user);
                     play();
                 })
                 .catch((error) => {
