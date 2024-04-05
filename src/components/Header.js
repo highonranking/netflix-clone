@@ -1,15 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ReactComponent as Logo } from "../assets/images/logo.svg";
 import { signOut } from 'firebase/auth';
 import { auth } from '../utils/firebase';
 import { useNavigate } from 'react-router-dom';
-import { UseSelector, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { onAuthStateChanged } from 'firebase/auth';
+import { useDispatch } from 'react-redux';
+import { addUser, removeUser } from '../utils/userSlice';
+
 
 
 const Header = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const user = useSelector((store)=>store.user);
   const [showDropdown, setShowDropdown] = useState(false);
+
+  useEffect(()=>{
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+          // User is signed in, see docs for a list of available properties
+          // https://firebase.google.com/docs/reference/js/auth.user
+          const {uid, email, displayName, photoURL} = user;
+          dispatch(addUser({uid:uid, email:email, displayName:displayName, photoURL: photoURL}));
+          navigate("/browse")
+         
+          // ...
+        } else {
+          dispatch(removeUser());
+          navigate("/")
+        }
+      });
+}, [])
+
 
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
@@ -17,7 +40,6 @@ const Header = () => {
 
   const handleLogout = () => {
     signOut(auth).then(() => {
-      navigate("/");
     }).catch((error) => {
     });
   };

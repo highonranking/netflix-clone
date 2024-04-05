@@ -33,7 +33,6 @@ const Login = () => {
         const message = checkValidateData(email.current.value, password.current.value);
         setErrorMessage(message);
         if(message) {
-            play();
         };
         if(!isSigninForm){
             createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
@@ -45,7 +44,8 @@ const Login = () => {
                       }).then(() => {
                         const {uid, email, displayName, photoURL} = auth.currentUser;
                         dispatch(addUser({uid:uid, email:email, displayName:displayName, photoURL: photoURL}));
-                        navigate("/browse");
+                        play();
+
                       }).catch((error) => {
                        setErrorMessage(error.message);
                        
@@ -58,7 +58,7 @@ const Login = () => {
     const errorCode = error.code;
     const errorMessage = error.message;
     setErrorMessage(errorCode + "-" + errorMessage)
-    play();
+   
     
   });
 
@@ -69,13 +69,12 @@ const Login = () => {
                     // Signed in 
                     const user = userCredential.user;
                     console.log(user);
-                    navigate("/browse");
+                    play();
                 })
                 .catch((error) => {
                     const errorCode = error.code;
                     const errorMessage = error.message;
                     setErrorMessage(errorCode + "-" + errorMessage)
-                    play();
                 });
 
         }
